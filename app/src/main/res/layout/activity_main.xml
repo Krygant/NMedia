@@ -80,7 +80,7 @@
         android:layout_marginVertical="@dimen/common_margin"
         app:layout_constraintTop_toBottomOf="@id/basement"
         android:layout_marginStart="@dimen/common_margin"
-        app:layout_constraintStart_toEndOf="@id/textFavorite"/>
+        app:layout_constraintStart_toEndOf="@id/textLike"/>
 
     <ImageView
         android:id="@+id/views"
@@ -92,22 +92,22 @@
         app:layout_constraintEnd_toStartOf="@id/textViews"/>
 
     <ImageView
-        android:id="@+id/favorite"
+        android:id="@+id/like"
         android:layout_width="@dimen/dimIc"
         android:layout_height="@dimen/dimIc"
-        app:srcCompat="@drawable/favorite_24"
+        app:srcCompat="@drawable/ic_like_24"
         android:layout_marginVertical="@dimen/common_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/basement"/>
 
     <TextView
-        android:id="@+id/textFavorite"
+        android:id="@+id/textLike"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="10"
-        app:layout_constraintStart_toEndOf="@id/favorite"
-        app:layout_constraintTop_toTopOf="@id/favorite"
-        app:layout_constraintBottom_toBottomOf="@id/favorite"/>
+        app:layout_constraintStart_toEndOf="@id/like"
+        app:layout_constraintTop_toTopOf="@id/like"
+        app:layout_constraintBottom_toBottomOf="@id/like"/>
 
     <TextView
         android:id="@+id/textShare"
