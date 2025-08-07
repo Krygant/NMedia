@@ -36,6 +36,18 @@ android {
 
 dependencies {
 
+    //def arch_version = "1.10.0"
+    def lifecycle_version = "2.8.7"
+    def activity_version = "1.7.0"
+
+    //ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    //optional - Test helpers for LiveData
+    //testImplementation "androidx.arch.core:core-testing:$arch_version"
+    implementation "androidx.activity:activity-ktx:$activity_version"
+
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.material
