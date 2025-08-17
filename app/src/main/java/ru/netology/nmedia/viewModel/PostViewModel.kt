@@ -24,10 +24,12 @@ class PostViewModel : ViewModel() {
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
     fun save(text: String) {
-        edited.value?.let {
-            val content = text.trim()
-            if (content != it.content) {
-                repository.save(it.copy(content = content))
+        if (text != "") {//если text не пустая, изменяю текст
+            edited.value?.let {
+                val content = text.trim()
+                if (content != it.content) {
+                    repository.save(it.copy(content = content))
+                }
             }
         }
         edited.value = empty

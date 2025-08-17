@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 binding.viewGroup.visibility = View.VISIBLE
                 binding.edit.setText(it.content)
                 AndroidUtils.showKeyboard(binding.content)
-            }else{
+            } else {
                 binding.viewGroup.visibility = View.GONE
             }
         }
@@ -76,6 +76,8 @@ class MainActivity : AppCompatActivity() {
 
         // Обработчик клика на кнопку отмены редактирования
         binding.clearText.setOnClickListener {
+            //очищаю поле edited во viewModel путем передачи ему значения пустой строки
+            viewModel.save("")
 
             // Скрываем панель редактирования
             binding.viewGroup.visibility = View.GONE
