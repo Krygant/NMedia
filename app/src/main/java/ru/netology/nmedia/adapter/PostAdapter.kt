@@ -43,12 +43,14 @@ class PostViewHolder(
             content.text = post.content
 
             val formattedShares = formatNumber(post.share)
-            textShare.text = formattedShares
+            share.text = formattedShares
             val formattedLikes = formatNumber(post.likes)
-            textLike.text = formattedLikes
-            like.setImageResource(
-                if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
-            )
+            like.text = formattedLikes
+//            like.setImageResource(
+//                if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
+//            )
+            like.isChecked = post.likedByMe
+
             like.setOnClickListener {
                 onInteractionListener.like(post)
             }
@@ -64,10 +66,12 @@ class PostViewHolder(
                                 onInteractionListener.remove(post)
                                 true
                             }
+
                             R.id.edit -> {
                                 onInteractionListener.edit(post)
                                 true
                             }
+
                             else -> false
                         }
                     }

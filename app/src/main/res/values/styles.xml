@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.AppTheme.LikeCheckBox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="buttonTint">@color/like_color</item>
+    </style>
+
+    <style name="Widget.AppTheme.LikeButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">@color/like_color</item>
+    </style>
+
+    <style name="Widget.AppTheme.ShareButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">@color/share_color</item>
+    </style>
+
+    <style name="Widget.AppTheme.ViewsButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">@color/views_color</item>
+    </style>
+
+    <style name="Widget.AppTheme.MenuButton" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="iconTint">@color/menu_color_icon</item>
+    </style>
+
+</resources>
