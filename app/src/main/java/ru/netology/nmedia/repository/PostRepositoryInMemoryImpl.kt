@@ -15,7 +15,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "23 сентября в 10:12",
             likes = 90,
             share = 10,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 8,
@@ -24,7 +25,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "22 сентября в 10:14",
             likes = 80,
             share = 99,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 7,
@@ -33,7 +35,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "22 сентября в 10:12",
             likes = 70,
             share = 9_999,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 6,
@@ -42,7 +45,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "21 сентября в 10:12",
             likes = 60,
             share = 100,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 5,
@@ -51,7 +55,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "20 сентября в 10:14",
             likes = 50,
             share = 999,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 4,
@@ -60,7 +65,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "19 сентября в 14:12",
             likes = 40,
             share = 10,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 3,
@@ -69,7 +75,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "19 сентября в 10:24",
             likes = 30,
             share = 10,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 2,
@@ -78,7 +85,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "18 сентября в 10:12",
             likes = 20,
             share = 10,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         ),
         Post(
             id = 1,
@@ -87,7 +95,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             published = "21 мая в 18:36",
             likes = 10,
             share = 10,
-            likedByMe = false
+            likedByMe = false,
+            shareByMe = false
         )
     )
 
@@ -107,7 +116,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun shareById(id: Long) {
         posts = posts.map {
-            if (it.id != id) it else it.copy(share = it.share + 1)
+            if (it.id != id) it else it.copy(
+                shareByMe = true,
+                share = it.share + 1
+            )
         }
         data.value = posts
     }

@@ -50,6 +50,7 @@ class PostViewHolder(
 //                if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
 //            )
             like.isChecked = post.likedByMe
+            share.isChecked = post.shareByMe
 
             like.setOnClickListener {
                 onInteractionListener.like(post)

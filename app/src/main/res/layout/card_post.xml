@@ -97,12 +97,12 @@
         android:layout_marginEnd="16dp"
         android:enabled="false"
         android:minWidth="0dp"
+        android:text="5"
         android:textColor="@color/black"
         app:icon="@drawable/views_selector"
         app:iconPadding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/basement"
-        tools:text="5" />
+        app:layout_constraintTop_toBottomOf="@id/basement" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/like"
