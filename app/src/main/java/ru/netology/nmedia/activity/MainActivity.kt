@@ -1,8 +1,8 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.R
@@ -10,7 +10,6 @@ import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -20,14 +19,45 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
+        val newPostLauncher = registerForActivityResult(NewPostContract) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.save(result)
+        }
+        val editPostLauncher = registerForActivityResult(EditPostContract) { result ->
+            result ?: return@registerForActivityResult
+            println(result)
 
+            viewModel.edited.observe(this) {
+                viewModel.edit(
+                    Post(
+                        id = it.id,
+                        author = it.author,
+                        published = it.published,
+                        content = result,
+                        likes = it.likes,
+                        share = it.share,
+                        likedByMe = it.likedByMe,
+                        shareByMe = it.likedByMe
+                    )
+                )
+            }
+        }
         val adapter = PostAdapter(object : OnInteractionListener {
             override fun like(post: Post) {
                 viewModel.likeById(post.id)
             }
 
             override fun share(post: Post) {
-                viewModel.shareById(post.id)
+//                viewModel.shareById(post.id)
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                }
+
+                val shareIntent =
+                    Intent.createChooser(intent, getString(R.string.chooser_share_post))
+                startActivity(shareIntent)
             }
 
             override fun remove(post: Post) {
@@ -37,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             override fun edit(post: Post) {
                 viewModel.edit(post)
             }
+
         })
 
         binding.list.adapter = adapter
@@ -49,41 +80,51 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.add.setOnClickListener {
+            newPostLauncher.launch()
+        }
+
         viewModel.edited.observe(this) {
-            if (it.id != 0L) {
-                binding.content.setText(it.content)
-                binding.viewGroup.visibility = View.VISIBLE
-                binding.edit.setText(it.content)
-                AndroidUtils.showKeyboard(binding.content)
-            } else {
-                binding.viewGroup.visibility = View.GONE
-            }
-        }
-        binding.save.setOnClickListener {
-            val text = binding.content.text.toString()
-            if (text.isBlank()) {
-                Toast.makeText(this@MainActivity, R.string.error_empty_content, Toast.LENGTH_LONG)
-                    .show()
-                return@setOnClickListener
-            }
-            viewModel.save(text)
-
-            binding.content.setText("")
-            binding.content.clearFocus()
-
-            AndroidUtils.hideKeyboard(binding.content)
+            if (it.id != 0L) editPostLauncher.launch(it.content)
         }
 
-        // Обработчик клика на кнопку отмены редактирования
-        binding.clearText.setOnClickListener {
-            //очищаю поле edited во viewModel путем передачи ему значения пустой строки
-            viewModel.save("")
 
-            // Скрываем панель редактирования
-            binding.viewGroup.visibility = View.GONE
-            binding.content.setText("")
-            binding.content.clearFocus()
-            AndroidUtils.hideKeyboard(binding.content)
-        }
+//        viewModel.edited.observe(this) {
+//            if (it.id != 0L) {
+//                binding.content.setText(it.content)
+//                binding.viewGroup.visibility = View.VISIBLE
+//                binding.edit.setText(it.content)
+//                AndroidUtils.showKeyboard(binding.content)
+//            } else {
+//                binding.viewGroup.visibility = View.GONE
+//            }
+//        }
+//        binding.save.setOnClickListener {
+//            val text = binding.content.text.toString()
+//            if (text.isBlank()) {
+//                Toast.makeText(this@MainActivity, R.string.error_empty_content, Toast.LENGTH_LONG)
+//                    .show()
+//                return@setOnClickListener
+//            }
+//            viewModel.save(text)
+//
+//            binding.content.setText("")
+//            binding.content.clearFocus()
+//
+//            AndroidUtils.hideKeyboard(binding.content)
+//        }
+//
+//        // Обработчик клика на кнопку отмены редактирования
+//        binding.clearText.setOnClickListener {
+//            //очищаю поле edited во viewModel путем передачи ему значения пустой строки
+//            viewModel.save("")
+//
+//            // Скрываем панель редактирования
+//            binding.viewGroup.visibility = View.GONE
+//            binding.content.setText("")
+//            binding.content.clearFocus()
+//            AndroidUtils.hideKeyboard(binding.content)
+//        }
     }
 }
