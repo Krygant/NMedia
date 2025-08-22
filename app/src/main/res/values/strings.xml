@@ -13,4 +13,7 @@
     <string name="clear">Clear</string>
     <string name="clear_edit">clear_edit</string>
     <string name="edit_text">Edit_text</string>
+    <string name="chooser_share_post">Share post</string>
+    <string name="add_post">Add post</string>
+    <string name="save">Save</string>
 </resources>
