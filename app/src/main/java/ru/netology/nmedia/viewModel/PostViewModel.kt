@@ -24,6 +24,7 @@ class PostViewModel : ViewModel() {
     fun likeById(id: Long) = repository.likeById(id)
     fun shareById(id: Long) = repository.shareById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun getVideo(id: Long): String? = repository.getPlayVideo(id)
     fun save(text: String) {
         if (text != "") {//если text не пустая, изменяю текст
             edited.value?.let {
@@ -39,4 +40,6 @@ class PostViewModel : ViewModel() {
     fun edit(post: Post) {
         edited.value = post
     }
+
+
 }

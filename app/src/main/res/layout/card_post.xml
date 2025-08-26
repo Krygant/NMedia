@@ -66,12 +66,39 @@
         app:layout_constraintTop_toBottomOf="@id/barrier"
         tools:text="@sample/posts.json/data/content" />
 
+    <FrameLayout
+        android:id="@+id/video"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher_foreground"
+            android:scaleType="centerCrop"/>
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/videoAttachment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="content" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/basement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content" />
+        app:constraint_referenced_ids="video"
+        app:layout_constraintTop_toBottomOf="@id/video" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share"
