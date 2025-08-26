@@ -16,7 +16,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 90,
             share = 10,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            video = "https://rutube.ru/video/6550a91e7e523f9503bed47e4c46d0cb"
         ),
         Post(
             id = 8,
@@ -137,5 +138,9 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
 
         data.value = posts
+    }
+
+    override fun getPlayVideo(id: Long): String? {
+        return posts.find { it.id == id }?.video
     }
 }

@@ -2,9 +2,11 @@ package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
@@ -25,22 +27,7 @@ class MainActivity : AppCompatActivity() {
         }
         val editPostLauncher = registerForActivityResult(EditPostContract) { result ->
             result ?: return@registerForActivityResult
-            println(result)
-
-            viewModel.edited.observe(this) {
-                viewModel.edit(
-                    Post(
-                        id = it.id,
-                        author = it.author,
-                        published = it.published,
-                        content = result,
-                        likes = it.likes,
-                        share = it.share,
-                        likedByMe = it.likedByMe,
-                        shareByMe = it.likedByMe
-                    )
-                )
-            }
+            viewModel.save(result)
         }
         val adapter = PostAdapter(object : OnInteractionListener {
             override fun like(post: Post) {
@@ -48,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun share(post: Post) {
-//                viewModel.shareById(post.id)
                 val intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     type = "text/plain"
@@ -68,6 +54,13 @@ class MainActivity : AppCompatActivity() {
                 viewModel.edit(post)
             }
 
+            override fun play(post: Post) {
+                val webPage = viewModel.getVideo(post.id)
+                val intent = Intent(Intent.ACTION_VIEW, webPage!!.toUri())
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+            }
         })
 
         binding.list.adapter = adapter
@@ -89,42 +82,5 @@ class MainActivity : AppCompatActivity() {
             if (it.id != 0L) editPostLauncher.launch(it.content)
         }
 
-
-//        viewModel.edited.observe(this) {
-//            if (it.id != 0L) {
-//                binding.content.setText(it.content)
-//                binding.viewGroup.visibility = View.VISIBLE
-//                binding.edit.setText(it.content)
-//                AndroidUtils.showKeyboard(binding.content)
-//            } else {
-//                binding.viewGroup.visibility = View.GONE
-//            }
-//        }
-//        binding.save.setOnClickListener {
-//            val text = binding.content.text.toString()
-//            if (text.isBlank()) {
-//                Toast.makeText(this@MainActivity, R.string.error_empty_content, Toast.LENGTH_LONG)
-//                    .show()
-//                return@setOnClickListener
-//            }
-//            viewModel.save(text)
-//
-//            binding.content.setText("")
-//            binding.content.clearFocus()
-//
-//            AndroidUtils.hideKeyboard(binding.content)
-//        }
-//
-//        // Обработчик клика на кнопку отмены редактирования
-//        binding.clearText.setOnClickListener {
-//            //очищаю поле edited во viewModel путем передачи ему значения пустой строки
-//            viewModel.save("")
-//
-//            // Скрываем панель редактирования
-//            binding.viewGroup.visibility = View.GONE
-//            binding.content.setText("")
-//            binding.content.clearFocus()
-//            AndroidUtils.hideKeyboard(binding.content)
-//        }
     }
 }
