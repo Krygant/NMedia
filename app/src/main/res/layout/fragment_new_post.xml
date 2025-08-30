@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/content"
+        android:id="@+id/edit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="64dp"
@@ -27,7 +27,7 @@
         android:layout_gravity="bottom" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
+        android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchor="@id/bottomAppBar"
