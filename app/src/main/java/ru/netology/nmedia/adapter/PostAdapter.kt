@@ -1,9 +1,8 @@
 package ru.netology.nmedia.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.PopupMenu
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,17 +11,16 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
 interface OnInteractionListener {
-    fun like(post: Post)
-    fun share(post: Post)
-    fun remove(post: Post)
-    fun edit(post: Post)
-    fun play(post: Post)
+    fun onLike(post: Post) {}
+    fun onEdit(post: Post) {}
+    fun onRemove(post: Post) {}
+    fun onShare(post: Post) {}
+    fun onOpen(post: Post) {}
 }
 
-class PostAdapter(
-    private val onInteractionListener: OnInteractionListener
-) : ListAdapter<Post, PostViewHolder>(PostDiffCallBack) {
-
+class PostsAdapter(
+    private val onInteractionListener: OnInteractionListener,
+) : ListAdapter<Post, PostViewHolder>(PostDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(binding, onInteractionListener)
@@ -36,62 +34,54 @@ class PostAdapter(
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onInteractionListener: OnInteractionListener
+    private val onInteractionListener: OnInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(post: Post) {
         binding.apply {
             author.text = post.author
             published.text = post.published
             content.text = post.content
-
-            if (post.video.isNullOrBlank()) {
-                video.visibility = View.INVISIBLE
-                video.visibility = View.GONE
-            } else {
-                video.visibility = View.VISIBLE
-            }
-            video.setOnClickListener {
-                onInteractionListener.play(post)
-            }
-
-            val formattedShares = formatNumber(post.share)
-            share.text = formattedShares
-            val formattedLikes = formatNumber(post.likes)
-            like.text = formattedLikes
+            // в адаптере
             like.isChecked = post.likedByMe
-            share.isChecked = post.shareByMe
+            like.text = "${post.likes}"
 
-            like.setOnClickListener {
-                onInteractionListener.like(post)
-            }
-            share.setOnClickListener {
-                onInteractionListener.share(post)
-            }
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
-                    inflate(R.menu.menu_post)
+                    inflate(R.menu.options_post)
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.remove -> {
-                                onInteractionListener.remove(post)
+                                onInteractionListener.onRemove(post)
                                 true
                             }
-
                             R.id.edit -> {
-                                onInteractionListener.edit(post)
+                                onInteractionListener.onEdit(post)
                                 true
                             }
-
                             else -> false
                         }
                     }
                 }.show()
             }
+
+            root.setOnClickListener {
+                onInteractionListener.onOpen(post)
+            }
+
+            like.setOnClickListener {
+                onInteractionListener.onLike(post)
+            }
+
+            share.setOnClickListener {
+                onInteractionListener.onShare(post)
+            }
         }
     }
 }
 
-object PostDiffCallBack : DiffUtil.ItemCallback<Post>() {
+object PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+
     override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
         return oldItem.id == newItem.id
     }
@@ -100,16 +90,4 @@ object PostDiffCallBack : DiffUtil.ItemCallback<Post>() {
         return oldItem == newItem
     }
 
-}
-
-fun formatNumber(num: Int): String {
-    if (num < 1_000) {
-        return "$num"
-    } else if (num < 10_000) {   // Обрабатываем числа меньше 10 тыс., показывая сотые доли
-        return "${num / 1000}.${num % 1000 / 100}K"
-    } else if (num < 1_000_000) {  // Обрабатываем числа между 10 тыс. и миллионом без дробной части
-        return "${num / 1000}K"
-    } else {                     // Числа свыше миллиона обрабатываются аналогично числам до 10 тыс.
-        return "${num / 1_000_000}.${num % 1_000_000 / 100_000}M"
-    }
 }
