@@ -65,7 +65,7 @@ class PostViewHolder(
                 }.show()
             }
 
-            root.setOnClickListener {
+            content.setOnClickListener{
                 onInteractionListener.onOpen(post)
             }
 

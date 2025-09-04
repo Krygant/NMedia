@@ -24,5 +24,9 @@
     <fragment
         android:id="@+id/singlePostFragment"
         android:name="ru.netology.nmedia.fragment.SinglePostFragment"
-        android:label="SinglePostFragment" />
+        android:label="SinglePostFragment" >
+        <action
+            android:id="@+id/action_singlePostFragment_to_newPostFragment"
+            app:destination="@id/newPostFragment" />
+    </fragment>
 </navigation>

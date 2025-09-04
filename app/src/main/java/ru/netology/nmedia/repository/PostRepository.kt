@@ -10,4 +10,5 @@ interface PostRepository {
     fun removeById(id: Long)
     fun save(post: Post)
     fun getPlayVideo(id: Long): String?
+    fun getPostById(id: Long): Post?
 }
