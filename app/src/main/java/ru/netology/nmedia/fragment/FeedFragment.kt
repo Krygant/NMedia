@@ -13,7 +13,7 @@ import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.idArg
+import ru.netology.nmedia.fragment.SinglePostFragment.Companion.idArg
 import ru.netology.nmedia.viewModel.PostViewModel
 
 class FeedFragment : Fragment() {
@@ -57,6 +57,8 @@ class FeedFragment : Fragment() {
                 startActivity(shareIntent)
             }
 
+
+
             override fun onOpen(post: Post) {
                 findNavController().navigate(
                     R.id.action_feedFragment_to_singlePostFragment,
@@ -77,4 +79,5 @@ class FeedFragment : Fragment() {
 
         return binding.root
     }
+
 }

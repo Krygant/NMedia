@@ -76,6 +76,10 @@ class PostRepositoryFilesImpl(private val context: Context) : PostRepository {
         return posts.find { it.id == id }?.video
     }
 
+    override fun getPostById(id: Long): Post? {
+        return posts.find { it.id == id }
+    }
+
     companion object {
         private const val FILENAME = "posts.json"
 

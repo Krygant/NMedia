@@ -78,6 +78,10 @@ class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
         return posts.find { it.id == id }?.video
     }
 
+    override fun getPostById(id: Long): Post? {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         private const val KEY_POSTS = "posts"
 

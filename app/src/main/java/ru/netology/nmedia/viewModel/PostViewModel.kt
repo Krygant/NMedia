@@ -27,7 +27,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     fun removeById(id: Long) = repository.removeById(id)
     fun getVideo(id: Long): String? = repository.getPlayVideo(id)
     fun save(text: String) {
-        if (text != "") {//если text не пустая, изменяю текст
+        if (text.isNotBlank()) {//если text не пустая, изменяю текст
             edited.value?.let {
                 val content = text.trim()
                 if (content != it.content) {
@@ -40,6 +40,12 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     fun edit(post: Post) {
         edited.value = post
+    }
+
+    private var changedPost: Post? = empty
+    fun getPostById(id: Long): Post? {
+        changedPost = repository.getPostById(id)
+        return changedPost
     }
 
 

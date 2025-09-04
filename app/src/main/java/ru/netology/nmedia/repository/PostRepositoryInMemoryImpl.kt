@@ -143,4 +143,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
     override fun getPlayVideo(id: Long): String? {
         return posts.find { it.id == id }?.video
     }
+
+    override fun getPostById(id: Long): Post? {
+        TODO("Not yet implemented")
+    }
 }

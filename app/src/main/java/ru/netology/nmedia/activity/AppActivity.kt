@@ -50,10 +50,7 @@ class AppActivity : AppCompatActivity() {
             )
 
             findNavController(R.id.nav_host_fragment).navigate(
-                R.id.action_feedFragment_to_singlePostFragment,
-                Bundle().apply {
-                    textArg = text
-                }
+                R.id.action_feedFragment_to_singlePostFragment
             )
         }
     }
