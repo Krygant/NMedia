@@ -37,7 +37,7 @@ class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
         }
     }
 
-    override fun get(): LiveData<List<Post>> = data
+    override fun getAll(): LiveData<List<Post>> = data
 
     override fun likeById(id: Long) {
         posts = posts.map {
@@ -76,10 +76,6 @@ class PostRepositorySharedPrefsImpl(context: Context) : PostRepository {
 
     override fun getPlayVideo(id: Long): String? {
         return posts.find { it.id == id }?.video
-    }
-
-    override fun getPostById(id: Long): Post? {
-        TODO("Not yet implemented")
     }
 
     companion object {
