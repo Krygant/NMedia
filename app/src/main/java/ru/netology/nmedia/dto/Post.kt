@@ -1,5 +1,7 @@
 package ru.netology.nmedia.dto
 
+import android.location.Address
+
 data class Post(
     val id: Long,
     val author: String,
@@ -9,5 +11,6 @@ data class Post(
     val share: Int = 999,
     val likedByMe: Boolean = false,
     val shareByMe: Boolean = false,
-    val video: String? = ""
+    val video: String? = "",
+    val address: String
 )

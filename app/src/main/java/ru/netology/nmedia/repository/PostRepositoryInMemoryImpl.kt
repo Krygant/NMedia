@@ -17,7 +17,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             share = 10,
             likedByMe = false,
             shareByMe = false,
-            video = "https://rutube.ru/video/6550a91e7e523f9503bed47e4c46d0cb"
+            video = "https://rutube.ru/video/6550a91e7e523f9503bed47e4c46d0cb",
+            address = ""
         ),
         Post(
             id = 8,
@@ -27,7 +28,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 80,
             share = 99,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 7,
@@ -37,7 +39,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 70,
             share = 9_999,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 6,
@@ -47,7 +50,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 60,
             share = 100,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 5,
@@ -57,7 +61,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 50,
             share = 999,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 4,
@@ -67,7 +72,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 40,
             share = 10,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 3,
@@ -77,7 +83,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 30,
             share = 10,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 2,
@@ -87,7 +94,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 20,
             share = 10,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         ),
         Post(
             id = 1,
@@ -97,7 +105,8 @@ class PostRepositoryInMemoryImpl : PostRepository {
             likes = 10,
             share = 10,
             likedByMe = false,
-            shareByMe = false
+            shareByMe = false,
+            address = ""
         )
     )
 
