@@ -1,14 +1,21 @@
 package ru.netology.nmedia.activity
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.findNavController
+import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.ActivityAppBinding
 import ru.netology.nmedia.fragment.NewPostFragment.Companion.textArg
@@ -25,7 +32,7 @@ class AppActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        requestNotificationsPermission()
         intent?.let {
             if (it.action != Intent.ACTION_SEND) {
                 return@let
@@ -53,5 +60,19 @@ class AppActivity : AppCompatActivity() {
                 R.id.action_feedFragment_to_singlePostFragment
             )
         }
+    }
+
+    private fun requestNotificationsPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
+            return
+        }
+
+        val permission = Manifest.permission.POST_NOTIFICATIONS
+
+        if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED){
+            return
+        }
+
+        requestPermissions(arrayOf(permission), 1)
     }
 }
